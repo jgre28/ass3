@@ -54,6 +54,35 @@ class propertyDAO
         $this->_listingPrice= $row['listingPrice'];
     }
 
+    public function getPropertyID()
+    {
+        return $this->_propertyID;
+    }
+
+    public function getPropertyType()
+    {
+        return $this->_propertyType;
+    }
+
+    public function getAddress()
+    {
+        return $this->_address;
+    }
+
+    public function getSellerID()
+    {
+        return $this->_sellerID;
+    }
+
+    public function getListingDate()
+    {
+        return $this->_listingDate;
+    }
+
+    public function getListingPrice()
+    {
+        return $this->_listingPrice;
+    }
 
 
 
