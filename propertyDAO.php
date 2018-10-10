@@ -43,25 +43,40 @@ class propertyDAO
             foreach ($where as $condition)
             {
                 $condition = explode("=",$condition,2);
+                if(trim($condition[1]) != '')
+                {
+                    if (trim($condition[0]) == "suburb")
+                    {
+                        //adds the suburb condition to the query
+                        $conditions[] = "suburb LIKE '" . trim($condition[1]) . "%'";
+                    }
+                    else if (trim($condition[0]) == "propertyType")
+                    {
+                        //select property types ids
+                        $propTypeSql = "SELECT typeID FROM type WHERE typeName LIKE '" . trim($condition[1]) . "%'";
+                        $propTypeResult = $this->_conn->query($propTypeSql);
 
-                if (trim($condition[0]) == "suburb")
-                {
-                    if(trim($condition[1]) != '')
-                    {
-                        $conditions[] = "suburb LIKE '".trim($condition[1])."%'";
+                        if ($propTypeResult->num_rows > 0)
+                        {
+                            $propTypeArray = array();
+                            //adds each matching type to the query
+                            while ($row = mysqli_fetch_array($propTypeResult))
+                            {
+                                $propTypeArray[] = "propertyType=" . $row[0];
+                            }
+                            $conditions[] = "(" . implode(" OR ", $propTypeArray) . ")";
+                        }
+                        else
+                        {
+                            //property type doesn't exist so overall search must return nothing
+                            $conditions[] = "FALSE";
+                        }
                     }
-                }
-                else if (trim($condition[0]) == "propertyType")
-                {
-                    //select property types ids
-                    $propTypeSql = "SELECT typeID FROM type WHERE typeName LIKE '".trim($condition[1])."%'";
-                    $propTypeResult = $this->_conn->query($propTypeSql);
-                    $propTypeArray = array();
-                    while ($row = mysqli_fetch_array($propTypeResult))
+                    else if (trim($condition[0]) == "maxPrice")
                     {
-                        $propTypeArray[] = "propertyType=".$row[0];
+                        //adds the suburb condition to the query
+                        $conditions[] = "listingPrice <= " . trim($condition[1]);
                     }
-                    $conditions[] = "(".implode(" OR ", $propTypeArray).")";
                 }
             }
 
@@ -107,6 +122,16 @@ class propertyDAO
         $result = $this->_conn->query($sql);
         $typeName = $result->fetch_array();
         return $typeName[0];
+    }
+
+    public function getListingDate()
+    {
+        return date("d/m/Y",strtotime($this->listingDate));
+    }
+
+    public function getListingPrice()
+    {
+        return "$".number_format($this->listingPrice,2);
     }
 
 

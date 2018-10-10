@@ -40,9 +40,8 @@ if ($conn->checkConn())
 
         $where = array();
         $where[] = "suburb = ".$_POST["suburb"];
-        //first it will search for a propertyType ID's matching search and then add those to where
-        //if none add an AND false since no property will exist
         $where[] = "propertyType = ".$_POST["propertyType"];
+        $where[] = "maxPrice = ".$_POST["maxPrice"];
 
         if ($rows = $property->find($where))
         {
@@ -51,12 +50,10 @@ if ($conn->checkConn())
             <div class="container">
             <table  class="table table-striped table-bordered">
                 <tr>
-                    <th>Property ID</th>
-                    <th>Property Type</th>
-                    <th>Address</th>
-                    <th>Seller</th>
                     <th>Listing Date</th>
                     <th>Listing Price</th>
+                    <th>Property Type</th>
+                    <th>Address</th>
                 </tr>
 
                 <?php
@@ -69,12 +66,10 @@ if ($conn->checkConn())
                     ?>
 
                     <tr>
-                        <td><?php echo $currentRow->propertyID?></td>
+                        <td><?php echo $currentRow->getListingDate()?></td>
+                        <td><?php echo $currentRow->getListingPrice()?></td>
                         <td><?php echo $currentRow->getPropertyType()?></td>
                         <td><?php echo $currentRow->getAddress()?></td>
-                        <td><?php echo $currentRow->sellerID?></td>
-                        <td><?php echo $currentRow->listingDate?></td>
-                        <td><?php echo $currentRow->listingPrice?></td>
                     </tr>
 
                     <?php
