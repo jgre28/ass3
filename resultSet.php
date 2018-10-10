@@ -24,7 +24,6 @@ class resultSet
         foreach ($row as $key=>$value)
         {
             $dataObject->$key = $value;
-
         }
         return $dataObject;
     }

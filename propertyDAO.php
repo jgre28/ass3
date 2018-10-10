@@ -9,22 +9,21 @@
 
 class propertyDAO
 {
-    private $_propertyID;
-    //private $_unitNum;
-    //private $_streetNum;
-    //private $_street;
-    //private $_suburb;
-    //private $_state;
-    //private $_postcode;
-    private $_address;
-    private $_sellerID;
-    private $_listingDate;
-    private $_listingPrice;
-    //private $_saleDate;
-    //private $_salePrice;
-    //private $_imageName;
-    //private $_description;
-    private $_propertyType;
+    public $propertyID;
+    public $unitNum;
+    public $streetNum;
+    public $street;
+    public $suburb;
+    public $state;
+    public $postcode;
+    public $sellerID;
+    public $listingDate;
+    public $listingPrice;
+    public $saleDate;
+    public $salePrice;
+    public $imageName;
+    public $description;
+    public $propertyType;
     private $_conn;
 
 
@@ -32,27 +31,6 @@ class propertyDAO
     function __construct($conn)
     {
         $this->_conn = $conn;
-    }
-
-    //returns a specific property by ID
-    public function findPropertyByID($ID)
-    {
-        $sql = "SELECT * FROM property WHERE propertyID =".$ID;
-        $result = $this->_conn->query($sql);
-        $row = $result->fetch_assoc();
-
-        $address= "";
-        if (!empty($row["unitNum"])){
-            $address= $address."U".$row["unitNum"].", ";
-        }
-        $address= $address.$row["streetNum"]." ".$row["street"].", ".$row["suburb"].", ".$row["state"].", ".$row["postcode"];
-
-        $this->_propertyID= $row['propertyID'];
-        $this->_propertyType= $row['propertyType'];
-        $this->_address= $address;
-        $this->_sellerID= $row['sellerID'];
-        $this->_listingDate= $row['listingDate'];
-        $this->_listingPrice= $row['listingPrice'];
     }
 
     //finds a property based on multiple criteria
@@ -83,37 +61,18 @@ class propertyDAO
         }
     }
 
-
-    public function getPropertyID()
-    {
-        return $this->_propertyID;
-    }
-
-    public function getPropertyType()
-    {
-        return $this->_propertyType;
-    }
-
+    //returns property address in a nice format
     public function getAddress()
     {
-        return $this->_address;
-    }
+        $address= "";
 
-    public function getSellerID()
-    {
-        return $this->_sellerID;
+        if (!empty($this->unitNum))
+        {
+            $address= $address."U".$this->unitNum.", ";
+        }
+        $address= $address.$this->streetNum." ".$this->street.", ".$this->suburb.", ".$this->state.", ".$this->postcode;
+        return $address;
     }
-
-    public function getListingDate()
-    {
-        return $this->_listingDate;
-    }
-
-    public function getListingPrice()
-    {
-        return $this->_listingPrice;
-    }
-
 
 
 }

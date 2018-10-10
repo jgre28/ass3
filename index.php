@@ -35,7 +35,16 @@ if ($conn->checkConn())
 
     $property= new propertyDAO($conn->getConn());
 
-    $property->findPropertyByID(1);
+    //$property->findPropertyByID(1);
+
+    $where = array();
+    $where[] = "suburb = 'Rye'";
+    //first it will search for a propertyType ID's matching search and then add those to where
+    //if none add an AND false since no property will exist
+    $where[] = "propertyType = 1";
+
+    if ($rows = $property->find($where))
+    {
     ?>
 
     <div class="container">
@@ -48,15 +57,42 @@ if ($conn->checkConn())
             <th>Listing Date</th>
             <th>Listing Price</th>
         </tr>
-        <tr>
-            <td><?php echo $property->getPropertyID()?></td>
-            <td><?php echo $property->getPropertyType()?></td>
-            <td><?php echo $property->getAddress()?></td>
-            <td><?php echo $property->getSellerID()?></td>
-            <td><?php echo $property->getListingDate()?></td>
-            <td><?php echo $property->getListingPrice()?></td>
-        </tr>
-    </table>
+
+        <?php
+            for ($i = 0; $i < $rows->rowCount(); $i++)
+            {
+                //gets the next row from the result set
+                $currentRow = $rows->getNext(new propertyDAO($conn->getConn()), $i);
+
+
+            ?>
+
+                <tr>
+                    <td><?php echo $currentRow->propertyID?></td>
+                    <td><?php echo $currentRow->propertyType?></td>
+                    <td><?php echo $currentRow->getAddress()?></td>
+                    <td><?php echo $currentRow->sellerID?></td>
+                    <td><?php echo $currentRow->listingDate?></td>
+                    <td><?php echo $currentRow->listingPrice?></td>
+                </tr>
+
+            <?php
+            }
+            ?>
+        </table>
+        <?php
+    }
+    else
+    {
+        //if no rows returned
+        $whereSearch="";
+        $whereSearch =  $whereSearch." WHERE ".implode(" AND ", $where);
+        echo "No results ".$whereSearch;
+    }
+        ?>
+
+
+
     </div>
 
 
