@@ -39,17 +39,34 @@ class propertyDAO
         $sql = "SELECT * FROM property";
         if (count($where) > 0)
         {
+            $conditions = array();
             foreach ($where as $condition)
             {
-                $condition = explode(" = ",$condition,2);
-                if ($condition[0] == "propertyType")
-                {
+                $condition = explode("=",$condition,2);
 
+                if (trim($condition[0]) == "suburb")
+                {
+                    if(trim($condition[1]) != '')
+                    {
+                        $conditions[] = "suburb LIKE '".trim($condition[1])."%'";
+                    }
+                }
+                else if (trim($condition[0]) == "propertyType")
+                {
+                    //select property types ids
+                    $propTypeSql = "SELECT typeID FROM type WHERE typeName LIKE '".trim($condition[1])."%'";
+                    $propTypeResult = $this->_conn->query($propTypeSql);
+                    $propTypeArray = array();
+                    while ($row = mysqli_fetch_array($propTypeResult))
+                    {
+                        $propTypeArray[] = "propertyType=".$row[0];
+                    }
+                    $conditions[] = "(".implode(" OR ", $propTypeArray).")";
                 }
             }
 
 
-            $sql = $sql." WHERE ".implode(" AND ",$where);
+            $sql = $sql." WHERE ".implode(" AND ",$conditions);
 
             $result = $this->_conn->query($sql);
             if ($result->num_rows > 0)

@@ -39,10 +39,10 @@ if ($conn->checkConn())
 
 
         $where = array();
-        $where[] = "suburb = 'Rye'";
+        $where[] = "suburb = ".$_POST["suburb"];
         //first it will search for a propertyType ID's matching search and then add those to where
         //if none add an AND false since no property will exist
-        $where[] = "propertyType = 1";
+        $where[] = "propertyType = ".$_POST["propertyType"];
 
         if ($rows = $property->find($where))
         {
