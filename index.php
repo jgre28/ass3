@@ -27,80 +27,37 @@
 
 require_once("DB.php");
 
-$conn= new DB();
-
-if ($conn->checkConn())
-{
-    require_once("propertyDAO.php");
-
-    $property= new propertyDAO($conn->getConn());
-
-    //$property->findPropertyByID(1);
-
-    $where = array();
-    $where[] = "suburb = 'Rye'";
-    //first it will search for a propertyType ID's matching search and then add those to where
-    //if none add an AND false since no property will exist
-    $where[] = "propertyType = 1";
-
-    if ($rows = $property->find($where))
-    {
     ?>
+<script>
+    function validateForm() {
+
+        if (document.forms["search"]["suburb"].value == "" &&
+            document.forms["search"]["propertyType"].value == "" &&
+            document.forms["search"]["maxPrice"].value == "") {
+            alert("At Least one field must be filled.");
+            return false;
+        }
+    }
+</script>
 
     <div class="container">
-    <table  class="table table-striped table-bordered">
-        <tr>
-            <th>Property ID</th>
-            <th>Property Type</th>
-            <th>Address</th>
-            <th>Seller</th>
-            <th>Listing Date</th>
-            <th>Listing Price</th>
-        </tr>
-
-        <?php
-            for ($i = 0; $i < $rows->rowCount(); $i++)
-            {
-                //gets the next row from the result set
-                $currentRow = $rows->getNext(new propertyDAO($conn->getConn()), $i);
-
-
-            ?>
-
-                <tr>
-                    <td><?php echo $currentRow->propertyID?></td>
-                    <td><?php echo $currentRow->getPropertyType()?></td>
-                    <td><?php echo $currentRow->getAddress()?></td>
-                    <td><?php echo $currentRow->sellerID?></td>
-                    <td><?php echo $currentRow->listingDate?></td>
-                    <td><?php echo $currentRow->listingPrice?></td>
-                </tr>
-
-            <?php
-            }
-            ?>
+    <form name="search" method="post" action="displayResults.php" onsubmit="return validateForm()">
+        <table>
+           <tr>
+                <td><b>Suburb: </b><input type="text" name="suburb" size="20"></td>
+                <td><b>Property Type: </b><input type="text" name="propertyType" size="20"></td>
+               <td><b>Maximum Listing Price: </b><input type="number" name="maxPrice" size="20"></td>
+            </tr>
         </table>
-        <?php
-    }
-    else
-    {
-        //if no rows returned
-        $whereSearch="";
-        $whereSearch =  $whereSearch." WHERE ".implode(" AND ", $where);
-        echo "No results ".$whereSearch;
-    }
-        ?>
+        <table>
+            <tr>
+                <td><input type="submit" value="Search"></td>
+                <td><input type="reset" value="Reset Search"></td>
+            </tr>
+        </table>
 
-
-
+    </form>
     </div>
-
-
-<?php
-}
-else
-    echo "ERROR: ".$conn->getConnErr();
-?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 

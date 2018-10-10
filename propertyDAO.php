@@ -39,6 +39,16 @@ class propertyDAO
         $sql = "SELECT * FROM property";
         if (count($where) > 0)
         {
+            foreach ($where as $condition)
+            {
+                $condition = explode(" = ",$condition,2);
+                if ($condition[0] == "propertyType")
+                {
+
+                }
+            }
+
+
             $sql = $sql." WHERE ".implode(" AND ",$where);
 
             $result = $this->_conn->query($sql);
@@ -78,8 +88,8 @@ class propertyDAO
     {
         $sql = "SELECT typeName FROM type WHERE typeID = ".$this->propertyType;
         $result = $this->_conn->query($sql);
-        $typeName = $result->fetch_assoc();
-        return $typeName['typeName'];
+        $typeName = $result->fetch_array();
+        return $typeName[0];
     }
 
 
