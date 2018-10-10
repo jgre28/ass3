@@ -47,4 +47,6 @@ if ($conn->checkConn())
 
 <?php
 }
+else
+    echo "ERROR: ".$conn->getConnErr();
 ?>

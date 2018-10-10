@@ -36,7 +36,7 @@ class DB
         //turns off error reporting so potential database connection error can be captured
         error_reporting(E_ERROR);
 
-        $this->_conn = new mysqli($this->_username, $this->_password, $this->_host, $this->_db);
+        $this->_conn = new mysqli( $this->_host, $this->_username, $this->_password, $this->_db);
 
         //turns error reporting back on
         error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
