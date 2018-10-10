@@ -69,7 +69,7 @@ if ($conn->checkConn())
 
                 <tr>
                     <td><?php echo $currentRow->propertyID?></td>
-                    <td><?php echo $currentRow->propertyType?></td>
+                    <td><?php echo $currentRow->getPropertyType()?></td>
                     <td><?php echo $currentRow->getAddress()?></td>
                     <td><?php echo $currentRow->sellerID?></td>
                     <td><?php echo $currentRow->listingDate?></td>

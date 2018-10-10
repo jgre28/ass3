@@ -74,6 +74,14 @@ class propertyDAO
         return $address;
     }
 
+    public function getPropertyType()
+    {
+        $sql = "SELECT typeName FROM type WHERE typeID = ".$this->propertyType;
+        $result = $this->_conn->query($sql);
+        $typeName = $result->fetch_assoc();
+        return $typeName['typeName'];
+    }
+
 
 }
 ?>
