@@ -34,6 +34,7 @@ class propertyDAO
         $this->_conn = $conn;
     }
 
+    //returns a specific property by ID
     public function findPropertyByID($ID)
     {
         $sql = "SELECT * FROM property WHERE propertyID =".$ID;
@@ -53,6 +54,35 @@ class propertyDAO
         $this->_listingDate= $row['listingDate'];
         $this->_listingPrice= $row['listingPrice'];
     }
+
+    //finds a property based on multiple criteria
+    public function find($where)
+    {
+        $sql = "SELECT * FROM property";
+        if (count($where) > 0)
+        {
+            $sql = $sql." WHERE ".implode(" AND ",$where);
+
+            $result = $this->_conn->query($sql);
+            if ($result->num_rows > 0)
+            {
+                $allRows = $result->fetch_all(MYSQLI_ASSOC);
+                include_once("resultSet.php");
+                return new ResultSet($allRows);
+            }
+            else
+            {
+                //no rows found
+                return false;
+            }
+        }
+        else
+        {
+            //where array empty
+            return false;
+        }
+    }
+
 
     public function getPropertyID()
     {

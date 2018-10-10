@@ -1,3 +1,22 @@
+<html>
+<header>
+    <div class="header">
+        <h1>RUTHLESS REAL ESTATE</h1>
+    </div>
+
+    <div class="sideMenu" >
+
+
+        <table align="center">
+            <tr><td><input type="button" class="button" value="Home"  OnClick="window.location='index.php'"></td></tr>
+
+
+        </table>
+
+    </div>
+</header>
+<body>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -19,12 +38,8 @@ if ($conn->checkConn())
     $property->findPropertyByID(1);
     ?>
 
-    <html>
-    <header>
-        Property Details
-    </header>
-    <body>
-    <table border=1">
+    <div class="container">
+    <table  class="table table-striped table-bordered">
         <tr>
             <th>Property ID</th>
             <th>Property Type</th>
@@ -42,11 +57,27 @@ if ($conn->checkConn())
             <td><?php echo $property->getListingPrice()?></td>
         </tr>
     </table>
-    </body>
-    </html>
+    </div>
+
 
 <?php
 }
 else
     echo "ERROR: ".$conn->getConnErr();
 ?>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="Ruthless.css">
+
+    </body>
+    </html>
