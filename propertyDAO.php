@@ -74,7 +74,7 @@ class propertyDAO
                     }
                     else if (trim($condition[0]) == "maxPrice")
                     {
-                        //adds the suburb condition to the query
+                        //adds the maximum listing price condition to the query
                         $conditions[] = "listingPrice <= " . trim($condition[1]);
                     }
                 }
@@ -132,6 +132,46 @@ class propertyDAO
     public function getListingPrice()
     {
         return "$".number_format($this->listingPrice,2);
+    }
+
+    public function getSearchQuery($where)
+    {
+        if (count($where) > 0)
+        {
+            $query = array();
+            foreach ($where as $condition)
+            {
+                $condition = explode("=",$condition,2);
+                if(trim($condition[1]) != '')
+                {
+                    if (trim($condition[0]) == "suburb")
+                    {
+                        //adds the suburb condition to the query
+                        $query[] = "Suburb LIKE '" . trim($condition[1]) . "'";
+                    }
+                    else if (trim($condition[0]) == "propertyType")
+                    {
+                        //adds the property type condition to the query
+                        $query[] = "Property Types LIKE '".trim($condition[1]) . "'";
+
+                    }
+                    else if (trim($condition[0]) == "maxPrice")
+                    {
+                        //adds the listing price condition to the query
+                        $query[] = "Listing Price LESS THAN $" . number_format(trim($condition[1]),2);
+                    }
+                }
+            }
+            $query = implode(" AND ", $query);
+            return $query;
+        }
+        else
+        {
+            //where array empty
+            return false;
+        }
+
+
     }
 
 

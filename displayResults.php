@@ -2,7 +2,6 @@
 <header>
     <?php include("header.php"); ?>
 </header>
-
 <body>
 
 <?php
@@ -23,20 +22,20 @@ if ($conn->checkConn())
 
     $property= new propertyDAO($conn->getConn());
 
-    //$property->findPropertyByID(1);
-
-
         $where = array();
         $where[] = "suburb = ".$_POST["suburb"];
         $where[] = "propertyType = ".$_POST["propertyType"];
         $where[] = "maxPrice = ".$_POST["maxPrice"];
+        ?>
+        <div class="container">
 
-        if ($rows = $property->find($where))
+        <?php if ($rows = $property->find($where))
         {
             ?>
 
-            <div class="container">
+
             <table  class="table table-striped table-bordered">
+                <p>Search Results for <?php echo $property->getSearchQuery($where) ?></p>
                 <tr>
                     <th>Listing Date</th>
                     <th>Listing Price</th>
@@ -71,7 +70,7 @@ if ($conn->checkConn())
             //if no rows returned
             $whereSearch="";
             $whereSearch =  $whereSearch." WHERE ".implode(" AND ", $where);
-            echo "No results ".$whereSearch;
+            echo "No results for ".$property->getSearchQuery($where);
         }
         ?>
 
