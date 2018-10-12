@@ -41,18 +41,24 @@ require_once("DB.php");
 </script>
 
     <div class="container">
-    <form name="search" method="post" action="displayResults.php" onsubmit="return validateForm()">
-        <table>
+    <h2>Property Search</h2>
+        <form name="search" method="post" action="displayResults.php" onsubmit="return validateForm()">
+        <table class="form" cellpadding="5">
            <tr>
-                <td><b>Suburb: </b><input type="text" name="suburb" size="20"></td>
-                <td><b>Property Type: </b><input type="text" name="propertyType" size="20"></td>
-               <td><b>Maximum Listing Price: </b><input type="number" name="maxPrice" size="20"></td>
+                <th>Suburb:</th>
+                <td><input type="text" name="suburb" size="28"></td>
+
             </tr>
-        </table>
-        <table>
             <tr>
-                <td><input type="submit" value="Search"></td>
-                <td><input type="reset" value="Reset Search"></td>
+                <th>Property Type:</th>
+                <td><input type="text" name="propertyType" size="28"></td>
+            </tr>
+            <tr>
+                <th>Max. Listing Price:</th>
+                <td><input type="number" name="maxPrice" size="28"></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="2"><input type="submit" class="submitButton" value="Search"><input type="reset" class="resetButton" value="Reset Search"></td>
             </tr>
         </table>
 

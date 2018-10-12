@@ -36,6 +36,11 @@ p {
     padding-top: 5px;
 }
 
+.form {
+    margin: 2px 4px;
+    font-size: 18px;
+}
+
 .button {
     background-color: #00F;
     border: 0px;
@@ -49,6 +54,49 @@ p {
     cursor: pointer;
     transition-duration: 0.3s;
     border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #FFF;
+    color: #00F;
+}
+
+.submitButton {
+    background-color: #00F;
+    border: 0px;
+    color: #FFF;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+    margin: 2px 4px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 4px;
+}
+
+.submitButton:hover {
+    background-color: #FFF;
+    color: #00F;
+}
+
+.resetButton {
+    background-color: #00F;
+    border: 0px;
+    color: #FFF;
+    width: 160px;
+    height: 40px;
+    text-align: left;
+    font-size: 24px;
+    margin: 2px 4px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 4px;
+}
+
+.resetButton:hover {
+    background-color: #FFF;
+    color: #00F;
 }
 
 .codeButton {
@@ -66,10 +114,7 @@ p {
 
 }
 
-.button:hover {
-    background-color: #FFF;
-    color: #00F;
-}
+
 
 .page {
     position: relative;
