@@ -68,8 +68,7 @@ if ($conn->checkConn())
         else
         {
             //if no rows returned
-            $whereSearch="";
-            $whereSearch =  $whereSearch." WHERE ".implode(" AND ", $where);
+            
             echo "No results for ".$property->getSearchQuery($where);
         }
         ?>
