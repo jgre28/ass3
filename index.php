@@ -29,7 +29,7 @@ require_once("DB.php");
 
     <div class="container">
     <h2>Property Search</h2>
-        <form name="search" method="post" action="displayResults.php" onsubmit="return validateForm()">
+        <form method="post" action="displayResults.php" onsubmit="return validateForm()">
         <table class="form" cellpadding="5">
            <tr>
                 <th>Suburb:</th>

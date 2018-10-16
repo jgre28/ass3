@@ -68,7 +68,7 @@ if ($conn->checkConn())
         else
         {
             //if no rows returned
-            
+
             echo "No results for ".$property->getSearchQuery($where);
         }
         ?>

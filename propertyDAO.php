@@ -81,7 +81,7 @@ class propertyDAO
             }
 
 
-            $sql = $sql." WHERE ".implode(" AND ",$conditions);
+            echo $sql = $sql." WHERE ".implode(" AND ",$conditions)." ORDER BY listingDate";
 
             $result = $this->_conn->query($sql);
             if ($result->num_rows > 0)
