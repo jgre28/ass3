@@ -43,18 +43,18 @@ class propertyDAO
             $conditions = array();
             foreach ($where as $condition)
             {
-                $condition = explode("=",$condition,2);
+                $condition = explode("=",$condition, 2);
                 if(trim($condition[1]) != '')
                 {
                     if (trim($condition[0]) == "suburb")
                     {
                         //adds the suburb condition to the query
-                        $conditions[] = "suburb LIKE '" . trim($condition[1]) . "%'";
+                        $conditions[] = "suburb LIKE '%" . trim($condition[1]) . "%'";
                     }
                     else if (trim($condition[0]) == "propertyType")
                     {
                         //select property types ids
-                        $propTypeSql = "SELECT typeID FROM type WHERE typeName LIKE '" . trim($condition[1]) . "%'";
+                        $propTypeSql = "SELECT typeID FROM type WHERE typeName LIKE '%" . trim($condition[1]) . "%'";
                         $propTypeResult = $this->_conn->query($propTypeSql);
 
                         if ($propTypeResult->num_rows > 0)
@@ -81,7 +81,7 @@ class propertyDAO
                 }
             }
 
-
+            //combines all the relevant conditions and creates the sql statement
             $sql = $sql." WHERE ".implode(" AND ",$conditions)." ORDER BY listingDate";
 
             $result = $this->_conn->query($sql);
