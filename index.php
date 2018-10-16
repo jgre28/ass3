@@ -42,7 +42,7 @@ require_once("DB.php");
             </tr>
             <tr>
                 <th>Max. Listing Price:</th>
-                <td><input type="number" name="maxPrice" size="28"></td>
+                <td><input type="number" min="0" name="maxPrice" size="28"></td>
             </tr>
             <tr>
                 <td align="right" colspan="2"><input type="submit" class="submitButton" value="Search"><input type="reset" class="resetButton" value="Reset Search"></td>
