@@ -39,6 +39,7 @@ class propertyDAO
         $sql = "SELECT * FROM property";
         if (count($where) > 0)
         {
+            //these will be the conditions put into the final sql search
             $conditions = array();
             foreach ($where as $condition)
             {

@@ -18,8 +18,8 @@ require_once("DB.php");
 <script>
     function validateForm() {
 
-        if (document.forms["search"]["suburb"].value == "" &&
-            document.forms["search"]["propertyType"].value == "" &&
+        if (document.forms["search"]["suburb"].value.trim() == "" &&
+            document.forms["search"]["propertyType"].value.trim() == "" &&
             document.forms["search"]["maxPrice"].value == "") {
             alert("At Least one field must be filled.");
             return false;
@@ -29,7 +29,7 @@ require_once("DB.php");
 
     <div class="container">
     <h2>Property Search</h2>
-        <form method="post" action="displayResults.php" onsubmit="return validateForm()">
+        <form name="search" method="post" action="displayResults.php" onsubmit="return validateForm()">
         <table class="form" cellpadding="5">
            <tr>
                 <th>Suburb:</th>

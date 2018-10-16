@@ -33,7 +33,7 @@ if ($conn->checkConn())
         {
             ?>
 
-
+            <h2>Results</h2>
             <table  class="table table-striped table-bordered">
                 <p>Search Results for <?php echo $property->getSearchQuery($where) ?></p>
                 <tr>
